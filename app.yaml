@@ -1,0 +1,12 @@
+application: pydictionary
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /css
+  static_dir: web-app/css
+- url: /js
+  static_dir: web-app/js
+- url: .*
+  script: main.py

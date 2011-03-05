@@ -1,0 +1,101 @@
+#!/usr/bin/env python
+import random
+import urllib
+from BeautifulSoup import BeautifulSoup          # For processing HTML
+import Meaning
+import subprocess
+import os
+
+def strcat(word):
+    splitedWords = []
+    splitedWords = word.split(' ')
+    joinedStr = '+'.join(splitedWords)
+    return joinedStr
+
+def getWordList():
+    #filepath_prefix = '/Users/kordan/Desktop/'
+    
+    filepath_prefix = os.getcwd() + '/'
+    filename = 'dic_list.txt'
+    filepath = filepath_prefix + filename
+    fin = open(filepath, 'r')
+    while 1:
+        line = fin.readline()
+        if not line:
+            break
+        line = line[ 0 : len(line) - 1]; # cut '\n' and the first space character
+        wordList.append(line)
+
+def getMeaning(word):
+        yahoo_prefix = 'http://tw.dictionary.yahoo.com/dictionary?p='
+        yahooDic_url = yahoo_prefix + word
+
+        dicWeb = urllib.urlopen(yahooDic_url)
+        webContent = dicWeb.read().decode('utf_8')
+        dicWeb.close()
+
+        soup = BeautifulSoup(webContent)
+
+        meaningList = soup.findAll("div", { "class" : "description" })
+        return meaningList
+
+
+def testing():
+    while 1:
+        # Initialization
+        currentWord = wordList[random.randint(0, len(wordList))]
+        currentWord = strcat(currentWord)
+        Meaning.show(currentWord)
+
+        # test this word
+        word = raw_input('\nThe word is? :')
+        while (word != currentWord) and (word != '0'):
+            word = raw_input('\nWrong!! Enter again or 0 to skip: ')
+        print '\n\n' + currentWord + '\n\n'
+        if word != '0':
+            print '================================================Good!!==================================================='
+            subprocess.call("clear", shell=True)
+        else:
+            print '========================================================================================================='
+
+def learning():
+    while 1:
+        # Initialization
+        exit = '00';
+        currentWord = wordList[random.randint(0, len(wordList))]
+        print '\n' + currentWord
+
+        currentWord = strcat(currentWord)
+        #meaningList = Meaning.show(currentWord)
+        ## print the meaning of the shffuled word from yahoo dictionary
+        #for meaning in meaningList:
+        ## print meaning.contents[0].p
+        #    context = ''
+        #    context = meaning.contents[0].contents[0]
+        #    print context
+        Meaning.show(currentWord)
+        while (exit == '00'):
+            exit = raw_input('\npress Enter to show the next or 0 to exit: ')
+
+if __name__ == '__main__':
+    # global variables
+    wordList = []
+    currentWord = ''
+    meaningList = []
+    # get the vocabulary list from saved file
+    getWordList();
+
+    mode = raw_input('[1]: testing [2]: learning\n');
+
+    if mode == '1':
+        testing()
+    elif mode == '2':
+        learning()
+    else:
+        print 'No such mode!!'
+
+else:
+    print 'hi'
+
+
+

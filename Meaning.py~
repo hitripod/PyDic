@@ -1,0 +1,78 @@
+# -*- coding: utf-8 -*-
+import simplejson as json
+import urllib
+import re
+
+def word_not_found(word):
+    print word
+
+def printAllTypesOfMeaning(entriesArray): # value of the first "entries"
+    for aType in entriesArray:
+        meaningOfType = aType["entries"]
+
+
+        # Special Case: a "terms" key right there (e.g. "miraculous")
+        # print meaningOfType
+        print "a terms key right there"
+        if "terms" in meaningOfType[0]:
+            print "a terms key right there"
+            cMeaning = meaningOfType[0]
+            tTerms = cMeaning["terms"]
+            for term in tTerms:
+                if term["language"] == "zh-Hant":
+                    tArray = term["labels"]
+                    tDic = tArray[0]
+                    print "(" + tDic["text"] + ".)"
+                    print term["text"]
+                
+        tArray = aType["labels"]
+        tDic = tArray[0]
+
+        # get the type of this meaning and start to iterate all meanings of this type
+
+
+        count = 1
+        for meaning in meaningOfType: # meaningOfType is a value of second "entries"
+            tTerms = meaning["terms"]
+            if len(tTerms) != 0:
+                print str(count) + ". ",
+            for term in tTerms:
+                if term["language"] == "zh-Hant":
+                    print term["text"]
+            count = count + 1
+
+                
+
+    
+
+    
+def show(word):
+    #url = 'http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q=' + word + '&sl=en&tl=zh-tw&restrict=pr,de&client=te'
+    url = 'http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q=miraculous&sl=en&tl=zh-tw&restrict=pr,de&client=te'
+
+    result = urllib.urlopen(url)
+    content = result.read()
+    pattern = r'''\\x([0-9a-z][0-9a-z])'''
+    replacement = r'''\u00\1'''
+    out = re.sub(pattern, replacement, content)
+    out.strip()
+    resultStr = out[25:len(out)-10]
+
+    try:
+        jsonObj = json.loads(resultStr)
+        primary_array = jsonObj["primaries"]
+
+        primary_dic = primary_array[0]
+        # len(entry_array): the number of meaning
+        DiffTypeMeaningsArray = primary_dic["entries"]
+        
+        printAllTypesOfMeaning(DiffTypeMeaningsArray)
+
+
+    except KeyError:
+        return word_not_found(word)
+
+if __name__ == '__main__':
+    show('book')
+else:
+    None
