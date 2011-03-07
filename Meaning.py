@@ -30,6 +30,7 @@ def printAllTypesOfMeaning(entriesArray): # value of the first "entries"
         meaningOfType = aType["entries"]
         tArray = aType["labels"]
         tDic = tArray[0]
+        print 'In Normal'
         print '\033[31m' + "(" + tDic["text"] + ".)" + "\033[0m"
 
         # get the type of this meaning and start to iterate all meanings of this type
@@ -108,8 +109,8 @@ def show(word):
 
     resultStr = fetchMeaningFromFile(word) 
     if resultStr == 'Failed' or resultStr is None:
-        url = 'http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q=' + word + '&sl=en&tl=zh-tw&restrict=pr,de&client=te'
-        #url = 'http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q=speculative&sl=en&tl=zh-tw&restrict=pr,de&client=te'
+        #url = 'http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q=' + word + '&sl=en&tl=zh-tw&restrict=pr,de&client=te'
+        url = 'http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q=speculative&sl=en&tl=zh-tw&restrict=pr,de&client=te'
 
         result = urllib.urlopen(url)
         content = result.read()

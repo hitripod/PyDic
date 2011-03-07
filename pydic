@@ -20,11 +20,11 @@ def getWordList():
     filepath = filepath_prefix + filename
     fin = open(filepath, 'r')
     while 1:
-        line = fin.readline()
-        if not line:
+        word = fin.readline()
+        if not word:
             break
-        line = line[ 0 : len(line) - 1]; # cut '\n' and the first space character
-        wordList.append(line)
+        word = word[ 0 : len(word) - 1]; # cut '\n' and the first space character
+        wordList.append(word)
 
 def getMeaning(word):
         yahoo_prefix = 'http://tw.dictionary.yahoo.com/dictionary?p='

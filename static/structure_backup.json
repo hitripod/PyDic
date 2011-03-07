@@ -1,0 +1,15 @@
+{
+    "text": "WordList",
+    "cls": "launchscreen",
+    "items": [{
+        "text": "speculative",
+        "leaf": true
+
+    },{
+        "text": "No Use",
+        "items": [{
+            "text": "Aston Martin",
+            "leaf": true
+        }]
+    }]
+}

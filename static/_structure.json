@@ -1,0 +1,11 @@
+[{
+    "text": "User Interface",
+    "cls": "launchscreen",
+    "items":[{
+        "text": "Buttons",
+        "card": "demos.Buttons",
+        "source": "src/demos/buttons.js",
+        "leaf": true
+    }]
+
+}]

@@ -5,8 +5,27 @@ api_version: 1
 
 handlers:
 - url: /css
-  static_dir: web-app/css
+  static_dir: web-app2/resources/css
 - url: /js
-  static_dir: web-app/js
+  static_dir: web-app2/resources/js
+- url: /img
+  static_dir: web-app2/resources/img
+- url: /demos
+  static_dir: web-app2/src/demos
+- url: /src
+  static_dir: web-app2/src
+#- url: /(.*\.json)
+#  static_files: static/\1
+#  upload: static/(.*\.json)
+#- url: /list.json)
+#  static_files: static/list.json
+#  upload: static/list.json
+- url: /(.*\.(json))
+  static_files: static/\1
+  upload: static/(.*\.(json))
+#- url: /css
+#  static_dir: web-app2/resources/css
+#- url: /js
+#  static_dir: web-app2/resources/js
 - url: .*
   script: main.py

@@ -1,0 +1,6 @@
+{
+text: 'Form',
+card: demos.List,
+source: 'src/demos/list.js',
+leaf: true
+}
